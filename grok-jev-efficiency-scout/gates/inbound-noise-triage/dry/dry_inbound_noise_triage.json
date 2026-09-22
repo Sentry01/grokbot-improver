@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "name": "dry_inbound_noise_triage",
+    "slug": "inbound-noise-triage",
+    "http_status": 200,
+    "latency_ms": 472.8,
+    "error": null,
+    "as_of": "2026-09-22 23:21:17 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "channel": "slack",
+      "from": "cos-bot",
+      "text": "Update deliverable filenames to cool-use-cases.md and top-10-brief.md",
+      "thread_context": "Grok×Jev Efficiency Scout in flight"
+    },
+    "questions": {
+      "needs_action": {
+        "type": "noul",
+        "instructions": "Does this inbound item require agent action this turn?"
+      },
+      "bucket": {
+        "type": "choice",
+        "instructions": "Triage bucket.",
+        "criteria": {
+          "act_now": "Blocking or time-sensitive ask",
+          "queue": "Real work, not urgent",
+          "fyi": "Informational only",
+          "spam_noise": "Ignore / archive",
+          "escalate_human": "Needs human judgment or credentials"
+        }
+      },
+      "urgency": {
+        "type": "score",
+        "instructions": "Urgency for the operator.",
+        "criteria": [
+          "ignore",
+          "low",
+          "normal",
+          "high",
+          "critical"
+        ]
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "needs_action": {
+        "type": "noul",
+        "noul": 0.62
+      },
+      "bucket": {
+        "type": "choice",
+        "choice": "queue",
+        "confidence": 0.69,
+        "probabilities": {
+          "escalate_human": 0.0,
+          "queue": 0.75,
+          "act_now": 0.16,
+          "fyi": 0.08,
+          "spam_noise": 0.01
+        }
+      },
+      "urgency": {
+        "type": "score",
+        "score": 1.5,
+        "confidence": 0.56,
+        "legend": {
+          "0": "ignore",
+          "1": "low",
+          "2": "normal",
+          "3": "high",
+          "4": "critical"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.51,
+          "2": 0.45,
+          "3": 0.03,
+          "4": 0.0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 492,
+      "output_tokens": 91
+    }
+  },
+  "decision": {
+    "action": "queue",
+    "proceed": true,
+    "reason": "bucket=queue; needs_action=0.62; urgency=1.5",
+    "bucket": "queue",
+    "needs_action": 0.62,
+    "urgency": 1.5
+  }
+}

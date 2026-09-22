@@ -1,0 +1,28 @@
+{
+  "slug": "browser-page-relevance",
+  "name": "Browser Page Relevance Gate",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "extract_now",
+    "proceed": true
+  },
+  "thresholds": {
+    "page_worth_min": 0.6
+  },
+  "questions": {
+    "page_worth_deep_read": {
+      "type": "noul",
+      "instructions": "Given goal + page title/URL/snippet, is a deep browser read worth the time?"
+    },
+    "next_browse_action": {
+      "type": "choice",
+      "instructions": "Best browse action.",
+      "criteria": {
+        "extract_now": "Page looks on-target; extract",
+        "follow_one_link": "One promising link only",
+        "back_to_search": "Wrong page; refine search",
+        "stop_browse": "Enough; leave browser"
+      }
+    }
+  }
+}

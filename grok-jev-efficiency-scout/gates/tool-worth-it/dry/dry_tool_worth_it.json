@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "name": "dry_tool_worth_it",
+    "slug": "tool-worth-it",
+    "http_status": 200,
+    "latency_ms": 422.5,
+    "error": null,
+    "as_of": "2026-09-22 23:19:24 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "user_goal": "Summarize public TypeSafe Jev blog for agent-ops framing",
+      "already_have": "WebFetch of introducing-system-one blog succeeded; key claims extracted",
+      "proposed_tool": "search_posts_all on X for 'Jev TypeSafe'",
+      "est_cost_tier": "medium"
+    },
+    "questions": {
+      "tool_worth_it": {
+        "type": "noul",
+        "instructions": "Given goal, known context, and proposed tool intent: is running this tool likely to materially improve the answer beyond what we already have?"
+      },
+      "primary_blocker": {
+        "type": "choice",
+        "instructions": "If not worth it, what is the main reason?",
+        "criteria": {
+          "already_answered": "State already contains enough to answer",
+          "wrong_tool": "A different cheaper tool would suffice",
+          "low_signal": "Expected retrieval is noise or off-topic",
+          "user_not_needed": "User did not ask for this depth",
+          "none": "Tool is worth running"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "tool_worth_it": {
+        "type": "noul",
+        "noul": 0.62
+      },
+      "primary_blocker": {
+        "type": "choice",
+        "choice": "wrong_tool",
+        "confidence": 0.24,
+        "probabilities": {
+          "user_not_needed": 0.01,
+          "low_signal": 0.27,
+          "already_answered": 0.09,
+          "none": 0.24,
+          "wrong_tool": 0.39
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 489,
+      "output_tokens": 82
+    }
+  },
+  "decision": {
+    "action": "skip_tool",
+    "proceed": false,
+    "reason": "tool_worth_it noul=0.62 < 0.65; blocker=wrong_tool",
+    "noul": 0.62,
+    "primary_blocker": "wrong_tool",
+    "threshold": 0.65
+  }
+}

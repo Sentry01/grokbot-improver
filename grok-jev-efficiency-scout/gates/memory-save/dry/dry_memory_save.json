@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "name": "dry_memory_save",
+    "slug": "memory-save",
+    "http_status": 200,
+    "latency_ms": 400.5,
+    "error": null,
+    "as_of": "2026-09-22 23:21:19 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "candidate": "jev-latest resolves to jev-1.13.0; score returns continuous score + legend",
+      "already_in_memory": false,
+      "session_only": false
+    },
+    "questions": {
+      "should_save": {
+        "type": "noul",
+        "instructions": "Is this fact worth writing to durable agent memory?"
+      },
+      "memory_kind": {
+        "type": "choice",
+        "instructions": "What kind of memory entry is this?",
+        "criteria": {
+          "user_preference": "Stable user preference",
+          "api_quirk": "Reusable API/tool behavior fact",
+          "procedure": "How we ship a repeating workflow",
+          "ephemeral": "Only useful this session",
+          "secret": "Must not store (credentials)"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "should_save": {
+        "type": "noul",
+        "noul": 0.39
+      },
+      "memory_kind": {
+        "type": "choice",
+        "choice": "api_quirk",
+        "confidence": 0.94,
+        "probabilities": {
+          "ephemeral": 0.01,
+          "secret": 0.0,
+          "user_preference": 0.04,
+          "procedure": 0.0,
+          "api_quirk": 0.95
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 432,
+      "output_tokens": 82
+    }
+  },
+  "decision": {
+    "action": "skip_save",
+    "proceed": false,
+    "reason": "skip_save: should_save=0.39 < 0.7; kind=api_quirk",
+    "should_save": 0.39,
+    "memory_kind": "api_quirk",
+    "threshold": 0.7
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "route-tool-subagent",
+  "name": "Route / Tool / Subagent Choice",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "answer_inline",
+    "proceed": true
+  },
+  "thresholds": {
+    "default_route": "answer_inline"
+  },
+  "questions": {
+    "route": {
+      "type": "choice",
+      "instructions": "Best next action for this goal given current state.",
+      "criteria": {
+        "answer_inline": "Enough context; write the answer now",
+        "web_fetch": "Fetch a known public URL",
+        "web_search": "Need discovery search",
+        "x_search": "Need live X/Twitter posts or social signal",
+        "browser": "Need interactive page / JS / login UI",
+        "shell_local": "Local files, code, or dry scripts on the box",
+        "spawn_executor": "Long autonomous sub-task needs a dedicated executor",
+        "ask_user": "Missing preference or credential only the user can provide"
+      }
+    }
+  }
+}

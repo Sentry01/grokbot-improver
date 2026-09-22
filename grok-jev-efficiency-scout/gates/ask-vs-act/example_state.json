@@ -1,0 +1,6 @@
+{
+  "proposed_action": "Create git commit on workspace scout files",
+  "user_asked_for_commit": false,
+  "reversible": true,
+  "affects_external": false
+}

@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "name": "dry_draft_completeness",
+    "slug": "draft-completeness",
+    "http_status": 200,
+    "latency_ms": 455.8,
+    "error": null,
+    "as_of": "2026-09-22 23:21:21 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "success_criteria": [
+        "cool-use-cases.md",
+        "top-10-brief.md",
+        "optional dry calls",
+        "report paths + top-10 + #1 + dry status"
+      ],
+      "present_files": [
+        "cool-use-cases.md"
+      ],
+      "dry_calls_done": false
+    },
+    "questions": {
+      "meets_success_criteria": {
+        "type": "noul",
+        "instructions": "Does current workspace + draft meet the stated success criteria?"
+      },
+      "missing_piece": {
+        "type": "choice",
+        "instructions": "Largest missing piece.",
+        "criteria": {
+          "files": "Required files/paths missing",
+          "content_section": "A required section is empty/weak",
+          "verification": "Dry-call or test evidence missing",
+          "ranking": "Ranking / #1 pick unclear",
+          "none": "Complete"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "meets_success_criteria": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "missing_piece": {
+        "type": "choice",
+        "choice": "files",
+        "confidence": 0.6,
+        "probabilities": {
+          "ranking": 0.06,
+          "none": 0.0,
+          "content_section": 0.0,
+          "verification": 0.26,
+          "files": 0.68
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 454,
+      "output_tokens": 75
+    }
+  },
+  "decision": {
+    "action": "revise",
+    "proceed": false,
+    "reason": "incomplete: meets_success_criteria=0.04 (min 0.7); missing=files",
+    "meets_success_criteria": 0.04,
+    "missing_piece": "files",
+    "threshold": 0.7
+  }
+}

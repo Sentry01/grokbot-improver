@@ -1,0 +1,6 @@
+{
+  "task": "Write two markdown deliverables and run two Jev dry POSTs",
+  "est_steps": 6,
+  "needs_own_browser": false,
+  "parent_blocked_on_result": true
+}

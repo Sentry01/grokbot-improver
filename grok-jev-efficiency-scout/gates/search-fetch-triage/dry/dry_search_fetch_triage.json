@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "name": "dry_search_fetch_triage",
+    "slug": "search-fetch-triage",
+    "http_status": 200,
+    "latency_ms": 650.0,
+    "error": null,
+    "as_of": "2026-09-22 23:21:17 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "goal": "Agent-ops Jev gates for tool spend",
+      "result_title": "Introducing System One Models & Jev",
+      "snippet": "typed probabilistic decisions; 70-500ms; noul/score/choice...",
+      "source": "typesafe.ai/blog"
+    },
+    "questions": {
+      "keep": {
+        "type": "noul",
+        "instructions": "Should this result be kept for the answer or deeper fetch?"
+      },
+      "utility": {
+        "type": "score",
+        "instructions": "Utility of this snippet toward the user goal.",
+        "criteria": [
+          "irrelevant",
+          "weakly related",
+          "useful supporting",
+          "core evidence"
+        ]
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "keep": {
+        "type": "noul",
+        "noul": 0.45
+      },
+      "utility": {
+        "type": "score",
+        "score": 1.65,
+        "confidence": 0.2,
+        "legend": {
+          "0": "irrelevant",
+          "1": "weakly related",
+          "2": "useful supporting",
+          "3": "core evidence"
+        },
+        "probabilities": {
+          "0": 0.07,
+          "1": 0.46,
+          "2": 0.22,
+          "3": 0.25
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 405,
+      "output_tokens": 33
+    }
+  },
+  "decision": {
+    "action": "keep",
+    "proceed": true,
+    "reason": "keep: keep_noul=0.45 (min 0.55) OR utility=1.65 (min 1.5)",
+    "keep_noul": 0.45,
+    "utility": 1.65,
+    "thresholds": {
+      "keep_noul_min": 0.55,
+      "utility_score_min": 1.5
+    }
+  }
+}

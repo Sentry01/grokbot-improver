@@ -1,0 +1,28 @@
+{
+  "slug": "redundant-tool-call",
+  "name": "Redundant Tool-Call Detector",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "allow_call",
+    "proceed": true
+  },
+  "thresholds": {
+    "is_redundant_min": 0.65
+  },
+  "questions": {
+    "is_redundant": {
+      "type": "noul",
+      "instructions": "Is this proposed tool call redundant with recent results already in state?"
+    },
+    "reuse_strategy": {
+      "type": "choice",
+      "instructions": "What to do instead.",
+      "criteria": {
+        "reuse_cache": "Use prior tool output as-is",
+        "narrow_delta": "Only fetch the delta/new slice",
+        "different_source": "Same question needs a different source",
+        "not_redundant": "Call is new and needed"
+      }
+    }
+  }
+}

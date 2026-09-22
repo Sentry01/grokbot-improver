@@ -1,0 +1,29 @@
+{
+  "slug": "executor-spawn",
+  "name": "Executor Spawn Gate",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "inline",
+    "proceed": false
+  },
+  "thresholds": {
+    "spawn_noul_min": 0.65
+  },
+  "questions": {
+    "spawn_executor": {
+      "type": "noul",
+      "instructions": "Should we spawn a dedicated executor subagent instead of doing this inline?"
+    },
+    "reason": {
+      "type": "choice",
+      "instructions": "Primary reason for the spawn decision.",
+      "criteria": {
+        "long_horizon": "Multi-step autonomous work with clear success criteria",
+        "isolation": "Needs separate desktop/browser or long Shell job",
+        "parallel": "Can run concurrent with other work",
+        "inline_enough": "Faster/cheaper to do in the parent turn",
+        "underspecified": "Goal too vague to delegate"
+      }
+    }
+  }
+}

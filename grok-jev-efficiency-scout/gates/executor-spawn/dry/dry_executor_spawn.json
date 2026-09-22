@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "name": "dry_executor_spawn",
+    "slug": "executor-spawn",
+    "http_status": 200,
+    "latency_ms": 526.2,
+    "error": null,
+    "as_of": "2026-09-22 23:21:18 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "task": "Write two markdown deliverables and run two Jev dry POSTs",
+      "est_steps": 6,
+      "needs_own_browser": false,
+      "parent_blocked_on_result": true
+    },
+    "questions": {
+      "spawn_executor": {
+        "type": "noul",
+        "instructions": "Should we spawn a dedicated executor subagent instead of doing this inline?"
+      },
+      "reason": {
+        "type": "choice",
+        "instructions": "Primary reason for the spawn decision.",
+        "criteria": {
+          "long_horizon": "Multi-step autonomous work with clear success criteria",
+          "isolation": "Needs separate desktop/browser or long Shell job",
+          "parallel": "Can run concurrent with other work",
+          "inline_enough": "Faster/cheaper to do in the parent turn",
+          "underspecified": "Goal too vague to delegate"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "spawn_executor": {
+        "type": "noul",
+        "noul": 0.52
+      },
+      "reason": {
+        "type": "choice",
+        "choice": "long_horizon",
+        "confidence": 0.69,
+        "probabilities": {
+          "inline_enough": 0.14,
+          "long_horizon": 0.74,
+          "isolation": 0.08,
+          "parallel": 0.02,
+          "underspecified": 0.02
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 452,
+      "output_tokens": 80
+    }
+  },
+  "decision": {
+    "action": "inline",
+    "proceed": false,
+    "reason": "inline: spawn_executor=0.52 (min 0.65) reason=long_horizon",
+    "spawn_noul": 0.52,
+    "spawn_reason": "long_horizon",
+    "threshold": 0.65
+  }
+}

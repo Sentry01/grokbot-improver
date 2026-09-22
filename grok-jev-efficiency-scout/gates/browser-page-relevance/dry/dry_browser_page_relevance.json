@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "name": "dry_browser_page_relevance",
+    "slug": "browser-page-relevance",
+    "http_status": 200,
+    "latency_ms": 385.2,
+    "error": null,
+    "as_of": "2026-09-22 23:21:20 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "goal": "Confirm Jev question types only noul/score/choice",
+      "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+      "title": "Introducing System One Models & Jev",
+      "snippet": "typed probabilistic decisions..."
+    },
+    "questions": {
+      "page_worth_deep_read": {
+        "type": "noul",
+        "instructions": "Given goal + page title/URL/snippet, is a deep browser read worth the time?"
+      },
+      "next_browse_action": {
+        "type": "choice",
+        "instructions": "Best browse action.",
+        "criteria": {
+          "extract_now": "Page looks on-target; extract",
+          "follow_one_link": "One promising link only",
+          "back_to_search": "Wrong page; refine search",
+          "stop_browse": "Enough; leave browser"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "page_worth_deep_read": {
+        "type": "noul",
+        "noul": 0.56
+      },
+      "next_browse_action": {
+        "type": "choice",
+        "choice": "extract_now",
+        "confidence": 0.83,
+        "probabilities": {
+          "extract_now": 0.87,
+          "follow_one_link": 0.05,
+          "stop_browse": 0.02,
+          "back_to_search": 0.06
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 448,
+      "output_tokens": 77
+    }
+  },
+  "decision": {
+    "action": "back_to_search",
+    "proceed": false,
+    "reason": "page_worth=0.56 < 0.6; next=back_to_search",
+    "page_worth": 0.56,
+    "next_browse_action": "extract_now",
+    "threshold": 0.6
+  }
+}

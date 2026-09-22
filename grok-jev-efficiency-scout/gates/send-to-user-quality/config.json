@@ -1,0 +1,41 @@
+{
+  "slug": "send-to-user-quality",
+  "name": "Send-to-User Quality Gate",
+  "fail_mode": "closed",
+  "default_on_error": {
+    "action": "hold_send",
+    "proceed": false
+  },
+  "thresholds": {
+    "ready_to_send_min": 0.65,
+    "send_quality_min": 2.0,
+    "note": "Lowered 0.7\u21920.65 after demo: factual sourced drafts stalled at ready\u22480.59\u20130.65 with quality\u22652.0"
+  },
+  "questions": {
+    "ready_to_send": {
+      "type": "noul",
+      "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite?"
+    },
+    "send_quality": {
+      "type": "score",
+      "instructions": "Overall quality of this user-facing draft for the stated goal.",
+      "criteria": [
+        "do not send \u2014 broken or unsafe",
+        "needs major rewrite",
+        "needs minor polish",
+        "send as-is"
+      ]
+    },
+    "main_defect": {
+      "type": "choice",
+      "instructions": "Primary defect if not send-as-is.",
+      "criteria": {
+        "incomplete": "Missing required deliverable pieces",
+        "unsupported": "Claims lack evidence from tools/state",
+        "wrong_scope": "Answers a different question",
+        "tone": "Tone or format mismatch for channel",
+        "none": "No material defect"
+      }
+    }
+  }
+}

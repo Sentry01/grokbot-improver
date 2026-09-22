@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "name": "dry_stop_vs_continue",
+    "slug": "stop-vs-continue",
+    "http_status": 200,
+    "latency_ms": 487.5,
+    "error": null,
+    "as_of": "2026-09-22 23:19:29 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "goal": "Write ranked Jev agent-ops use cases",
+      "calls_so_far": [
+        "WebFetch blog",
+        "Read sibling dry-call JSON"
+      ],
+      "gaps": [
+        "none blocking"
+      ],
+      "budget_pressure": "prefer finish"
+    },
+    "questions": {
+      "should_stop": {
+        "type": "noul",
+        "instructions": "Should the agent stop tool use and produce the user-facing answer now?"
+      },
+      "marginal_value_of_next_call": {
+        "type": "score",
+        "instructions": "Expected marginal value of one more tool call.",
+        "criteria": [
+          "negative / harmful delay",
+          "near zero",
+          "small",
+          "material"
+        ]
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "should_stop": {
+        "type": "noul",
+        "noul": 0.7
+      },
+      "marginal_value_of_next_call": {
+        "type": "score",
+        "score": 1.18,
+        "confidence": 0.48,
+        "legend": {
+          "0": "negative / harmful delay",
+          "1": "near zero",
+          "2": "small",
+          "3": "material"
+        },
+        "probabilities": {
+          "0": 0.17,
+          "1": 0.52,
+          "2": 0.26,
+          "3": 0.05
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 390,
+      "output_tokens": 40
+    }
+  },
+  "decision": {
+    "action": "stop",
+    "proceed": false,
+    "reason": "stop: should_stop=0.7 (min 0.6) OR marginal_value=1.18 (min 1.5)",
+    "should_stop": 0.7,
+    "marginal_value": 1.18,
+    "stop_by_noul": true,
+    "stop_by_mv": true,
+    "thresholds": {
+      "should_stop_min": 0.6,
+      "marginal_value_min": 1.5
+    }
+  }
+}

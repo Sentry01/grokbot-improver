@@ -1,0 +1,29 @@
+{
+  "slug": "stop-vs-continue",
+  "name": "Stop-vs-Continue Loop Gate",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "continue",
+    "proceed": true
+  },
+  "thresholds": {
+    "should_stop_min": 0.6,
+    "marginal_value_min": 1.5
+  },
+  "questions": {
+    "should_stop": {
+      "type": "noul",
+      "instructions": "Should the agent stop tool use and produce the user-facing answer now?"
+    },
+    "marginal_value_of_next_call": {
+      "type": "score",
+      "instructions": "Expected marginal value of one more tool call.",
+      "criteria": [
+        "negative / harmful delay",
+        "near zero",
+        "small",
+        "material"
+      ]
+    }
+  }
+}

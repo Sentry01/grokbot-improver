@@ -1,0 +1,29 @@
+{
+  "slug": "routine-skill-schedule",
+  "name": "Routine / Skill Schedule Decision",
+  "fail_mode": "closed",
+  "default_on_error": {
+    "action": "do_not_schedule",
+    "proceed": false
+  },
+  "thresholds": {
+    "worth_scheduling_min": 0.7
+  },
+  "questions": {
+    "worth_scheduling": {
+      "type": "noul",
+      "instructions": "Should this become a scheduled routine/skill rather than one-off?"
+    },
+    "cadence": {
+      "type": "choice",
+      "instructions": "Best cadence if scheduled.",
+      "criteria": {
+        "hourly": "High churn signal",
+        "daily": "Once-per-day digest",
+        "weekly": "Slow-moving summary",
+        "on_event": "Trigger on webhook/inbox event only",
+        "do_not_schedule": "Keep manual / on-demand"
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "name": "dry_parallel_fanout",
+    "slug": "parallel-fanout",
+    "http_status": 200,
+    "latency_ms": 456.2,
+    "error": null,
+    "as_of": "2026-09-22 23:21:18 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "proposed": [
+        "WebFetch blog",
+        "Read sibling dry_score.json",
+        "ls workspace"
+      ],
+      "dependencies": "none between them",
+      "rate_limit_pressure": "low"
+    },
+    "questions": {
+      "fan_out_ok": {
+        "type": "noul",
+        "instructions": "Are the proposed next actions independent enough to run in parallel?"
+      },
+      "max_parallel_bucket": {
+        "type": "score",
+        "instructions": "How aggressively to parallelize this batch.",
+        "criteria": [
+          "strictly serial",
+          "pair only",
+          "small batch (3-5)",
+          "wide fan-out"
+        ]
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "fan_out_ok": {
+        "type": "noul",
+        "noul": 0.85
+      },
+      "max_parallel_bucket": {
+        "type": "score",
+        "score": 2.08,
+        "confidence": 0.81,
+        "legend": {
+          "0": "strictly serial",
+          "1": "pair only",
+          "2": "small batch (3-5)",
+          "3": "wide fan-out"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.03,
+          "2": 0.82,
+          "3": 0.14
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 382,
+      "output_tokens": 37
+    }
+  },
+  "decision": {
+    "action": "parallel",
+    "proceed": true,
+    "reason": "parallel: fan_out_ok=0.85 >= 0.6; max_parallel≈5 (score=2.08)",
+    "fan_out_noul": 0.85,
+    "max_parallel_score": 2.08,
+    "max_parallel": 5,
+    "threshold": 0.6
+  }
+}

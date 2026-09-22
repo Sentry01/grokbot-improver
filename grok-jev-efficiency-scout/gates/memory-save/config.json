@@ -1,0 +1,29 @@
+{
+  "slug": "memory-save",
+  "name": "Memory Save Decision",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "skip_save",
+    "proceed": false
+  },
+  "thresholds": {
+    "should_save_min": 0.7
+  },
+  "questions": {
+    "should_save": {
+      "type": "noul",
+      "instructions": "Is this fact worth writing to durable agent memory?"
+    },
+    "memory_kind": {
+      "type": "choice",
+      "instructions": "What kind of memory entry is this?",
+      "criteria": {
+        "user_preference": "Stable user preference",
+        "api_quirk": "Reusable API/tool behavior fact",
+        "procedure": "How we ship a repeating workflow",
+        "ephemeral": "Only useful this session",
+        "secret": "Must not store (credentials)"
+      }
+    }
+  }
+}
