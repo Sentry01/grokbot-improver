@@ -1,0 +1,38 @@
+{
+  "slug": "inbound-noise-triage",
+  "name": "Inbound Noise Triage",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "queue",
+    "proceed": true
+  },
+  "thresholds": {},
+  "questions": {
+    "needs_action": {
+      "type": "noul",
+      "instructions": "Does this inbound item require agent action this turn?"
+    },
+    "bucket": {
+      "type": "choice",
+      "instructions": "Triage bucket.",
+      "criteria": {
+        "act_now": "Blocking or time-sensitive ask",
+        "queue": "Real work, not urgent",
+        "fyi": "Informational only",
+        "spam_noise": "Ignore / archive",
+        "escalate_human": "Needs human judgment or credentials"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "Urgency for the operator.",
+      "criteria": [
+        "ignore",
+        "low",
+        "normal",
+        "high",
+        "critical"
+      ]
+    }
+  }
+}

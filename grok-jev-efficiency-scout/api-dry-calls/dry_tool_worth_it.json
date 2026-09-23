@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "name": "dry_tool_worth_it",
+    "http_status": 200,
+    "latency_ms": 376.9,
+    "error": null,
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "user_goal": "Summarize public TypeSafe Jev blog for agent-ops framing only",
+      "already_have": "WebFetch of introducing-system-one blog succeeded; typed outputs, latency, pricing extracted",
+      "proposed_tool": "search_posts_all on X for 'Jev TypeSafe'",
+      "est_cost_tier": "medium"
+    },
+    "questions": {
+      "tool_worth_it": {
+        "type": "noul",
+        "instructions": "Given goal, known context, and proposed tool intent: is running this tool likely to materially improve the answer beyond what we already have?"
+      },
+      "primary_blocker": {
+        "type": "choice",
+        "instructions": "If not worth it, what is the main reason?",
+        "criteria": {
+          "already_answered": "State already contains enough to answer",
+          "wrong_tool": "A different cheaper tool would suffice",
+          "low_signal": "Expected retrieval is noise or off-topic",
+          "user_not_needed": "User did not ask for this depth",
+          "none": "Tool is worth running"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "tool_worth_it": {
+        "type": "noul",
+        "noul": 0.55
+      },
+      "primary_blocker": {
+        "type": "choice",
+        "choice": "wrong_tool",
+        "confidence": 0.34,
+        "probabilities": {
+          "user_not_needed": 0.01,
+          "low_signal": 0.28,
+          "wrong_tool": 0.48,
+          "already_answered": 0.1,
+          "none": 0.13
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 494,
+      "output_tokens": 82
+    }
+  }
+}

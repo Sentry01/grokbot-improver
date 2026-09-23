@@ -1,0 +1,6 @@
+{
+  "proposed": "curl POST to api.typesafe.ai with Bearer from env; write response sans key",
+  "touches_secrets_file": false,
+  "network": true,
+  "writes_workspace_only": true
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "tool-worth-it",
+  "name": "Tool Worth-It Gate",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "run_tool",
+    "proceed": true
+  },
+  "thresholds": {
+    "tool_worth_it_min": 0.65
+  },
+  "questions": {
+    "tool_worth_it": {
+      "type": "noul",
+      "instructions": "Given goal, known context, and proposed tool intent: is running this tool likely to materially improve the answer beyond what we already have?"
+    },
+    "primary_blocker": {
+      "type": "choice",
+      "instructions": "If not worth it, what is the main reason?",
+      "criteria": {
+        "already_answered": "State already contains enough to answer",
+        "wrong_tool": "A different cheaper tool would suffice",
+        "low_signal": "Expected retrieval is noise or off-topic",
+        "user_not_needed": "User did not ask for this depth",
+        "none": "Tool is worth running"
+      }
+    }
+  }
+}

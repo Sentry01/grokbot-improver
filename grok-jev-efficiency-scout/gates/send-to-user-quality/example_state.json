@@ -1,0 +1,13 @@
+{
+  "channel": "SendToUser",
+  "goal": "Return paths, top-10 one-liners, #1 prototype, dry-call status",
+  "draft_excerpt": "Paths written under grok-jev-efficiency-scout; #1 Tool Worth-It Gate...",
+  "open_todos": [],
+  "evidence_sources": [
+    {
+      "tool": "Shell",
+      "claim": "gate library paths exist under grok-jev-efficiency-scout",
+      "excerpt": "ls gates/ shows send-to-user-quality, tool-worth-it, INDEX.md"
+    }
+  ]
+}

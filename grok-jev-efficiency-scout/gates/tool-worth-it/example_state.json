@@ -1,0 +1,6 @@
+{
+  "user_goal": "Summarize public TypeSafe Jev blog for agent-ops framing",
+  "already_have": "WebFetch of introducing-system-one blog succeeded; key claims extracted",
+  "proposed_tool": "search_posts_all on X for 'Jev TypeSafe'",
+  "est_cost_tier": "medium"
+}

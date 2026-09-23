@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "name": "dry_auto_review_prescreen",
+    "slug": "auto-review-prescreen",
+    "http_status": 200,
+    "latency_ms": 513.2,
+    "error": null,
+    "as_of": "2026-09-22 23:21:19 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "proposed": "curl POST to api.typesafe.ai with Bearer from env; write response sans key",
+      "touches_secrets_file": false,
+      "network": true,
+      "writes_workspace_only": true
+    },
+    "questions": {
+      "likely_blocked": {
+        "type": "noul",
+        "instructions": "Is this proposed action likely to trip Auto-review or safety blocks?"
+      },
+      "safer_path": {
+        "type": "choice",
+        "instructions": "Preferred safer approach.",
+        "criteria": {
+          "use_read_tool": "Use Read / sanctioned read path",
+          "shrink_scope": "Narrow command to lower privilege",
+          "public_fetch": "Use WebFetch/curl for public content",
+          "ask_approval": "Same action needs honest user approval retry",
+          "proceed": "Risk looks acceptable; proceed"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "likely_blocked": {
+        "type": "noul",
+        "noul": 0.37
+      },
+      "safer_path": {
+        "type": "choice",
+        "choice": "proceed",
+        "confidence": 0.24,
+        "probabilities": {
+          "ask_approval": 0.37,
+          "proceed": 0.4,
+          "public_fetch": 0.07,
+          "shrink_scope": 0.1,
+          "use_read_tool": 0.06
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 448,
+      "output_tokens": 83
+    }
+  },
+  "decision": {
+    "action": "proceed",
+    "proceed": true,
+    "reason": "likely_blocked=0.37 < 0.55; safer_path=proceed",
+    "likely_blocked": 0.37,
+    "safer_path": "proceed",
+    "threshold": 0.55
+  }
+}

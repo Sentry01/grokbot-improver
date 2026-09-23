@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "name": "dry_routine_skill_schedule",
+    "slug": "routine-skill-schedule",
+    "http_status": 200,
+    "latency_ms": 343.2,
+    "error": null,
+    "as_of": "2026-09-22 23:21:20 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "task": "Re-run agent-ops dry calls when jev model pin changes",
+      "repeat_value": "medium",
+      "cost_per_run": "low"
+    },
+    "questions": {
+      "worth_scheduling": {
+        "type": "noul",
+        "instructions": "Should this become a scheduled routine/skill rather than one-off?"
+      },
+      "cadence": {
+        "type": "choice",
+        "instructions": "Best cadence if scheduled.",
+        "criteria": {
+          "hourly": "High churn signal",
+          "daily": "Once-per-day digest",
+          "weekly": "Slow-moving summary",
+          "on_event": "Trigger on webhook/inbox event only",
+          "do_not_schedule": "Keep manual / on-demand"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "worth_scheduling": {
+        "type": "noul",
+        "noul": 0.63
+      },
+      "cadence": {
+        "type": "choice",
+        "choice": "on_event",
+        "confidence": 0.42,
+        "probabilities": {
+          "do_not_schedule": 0.03,
+          "daily": 0.32,
+          "weekly": 0.11,
+          "on_event": 0.53,
+          "hourly": 0.01
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 421,
+      "output_tokens": 77
+    }
+  },
+  "decision": {
+    "action": "do_not_schedule",
+    "proceed": false,
+    "reason": "do_not_schedule: worth_scheduling=0.63 (min 0.7) cadence=on_event",
+    "worth_scheduling": 0.63,
+    "cadence": "on_event",
+    "threshold": 0.7
+  }
+}

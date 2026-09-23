@@ -1,0 +1,5 @@
+{
+  "task": "Re-run agent-ops dry calls when jev model pin changes",
+  "repeat_value": "medium",
+  "cost_per_run": "low"
+}

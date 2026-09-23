@@ -1,0 +1,28 @@
+{
+  "slug": "parallel-fanout",
+  "name": "Parallel Fan-out Orchestrator",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "sequential",
+    "proceed": false
+  },
+  "thresholds": {
+    "fan_out_noul_min": 0.6
+  },
+  "questions": {
+    "fan_out_ok": {
+      "type": "noul",
+      "instructions": "Are the proposed next actions independent enough to run in parallel?"
+    },
+    "max_parallel_bucket": {
+      "type": "score",
+      "instructions": "How aggressively to parallelize this batch.",
+      "criteria": [
+        "strictly serial",
+        "pair only",
+        "small batch (3-5)",
+        "wide fan-out"
+      ]
+    }
+  }
+}

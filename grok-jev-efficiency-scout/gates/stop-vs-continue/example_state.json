@@ -1,0 +1,6 @@
+{
+  "goal": "Write ranked Jev agent-ops use cases",
+  "calls_so_far": ["WebFetch blog", "Read sibling dry-call JSON"],
+  "gaps": ["none blocking"],
+  "budget_pressure": "prefer finish"
+}

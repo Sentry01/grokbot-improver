@@ -1,0 +1,6 @@
+{
+  "goal": "Validate Jev noul+choice shapes for tool gating",
+  "known_urls": ["https://api.typesafe.ai/v1/systemone"],
+  "have_api_key_env": true,
+  "prior_failures": []
+}

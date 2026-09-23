@@ -1,0 +1,6 @@
+{
+  "channel": "slack",
+  "from": "cos-bot",
+  "text": "Update deliverable filenames to cool-use-cases.md and top-10-brief.md",
+  "thread_context": "Grok×Jev Efficiency Scout in flight"
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "name": "dry_send_to_user_quality",
+    "slug": "send-to-user-quality",
+    "http_status": 200,
+    "latency_ms": 373.0,
+    "error": null,
+    "as_of": "2026-09-22 23:19:28 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "channel": "SendToUser",
+      "goal": "Return paths, top-10 one-liners, #1 prototype, dry-call status",
+      "draft_excerpt": "Paths written under grok-jev-efficiency-scout; #1 Tool Worth-It Gate...",
+      "open_todos": [],
+      "evidence_sources": []
+    },
+    "questions": {
+      "ready_to_send": {
+        "type": "noul",
+        "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite? If state.evidence_sources is non-empty and its entries cover the draft’s material claims (matching tool/claim/excerpt provenance), treat those claims as already evidenced in-state — do not require additional tool use for them; score ready accordingly."
+      },
+      "send_quality": {
+        "type": "score",
+        "instructions": "Overall quality of this user-facing draft for the stated goal.",
+        "criteria": [
+          "do not send — broken or unsafe",
+          "needs major rewrite",
+          "needs minor polish",
+          "send as-is"
+        ]
+      },
+      "main_defect": {
+        "type": "choice",
+        "instructions": "Primary defect if not send-as-is. Claims that have matching entries in state.evidence_sources (tool/claim/excerpt) are supported by tool/state evidence and must NOT be labeled unsupported. Prefer choice none when evidence_sources covers material claims and there is no other defect.",
+        "criteria": {
+          "incomplete": "Missing required deliverable pieces",
+          "unsupported": "Claims lack evidence from tools/state",
+          "wrong_scope": "Answers a different question",
+          "tone": "Tone or format mismatch for channel",
+          "none": "No material defect"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "ready_to_send": {
+        "type": "noul",
+        "noul": 0.09
+      },
+      "send_quality": {
+        "type": "score",
+        "score": 0.82,
+        "confidence": 0.78,
+        "legend": {
+          "0": "do not send — broken or unsafe",
+          "1": "needs major rewrite",
+          "2": "needs minor polish",
+          "3": "send as-is"
+        },
+        "probabilities": {
+          "0": 0.2,
+          "1": 0.79,
+          "2": 0.01,
+          "3": 0.0
+        }
+      },
+      "main_defect": {
+        "type": "choice",
+        "choice": "incomplete",
+        "confidence": 0.96,
+        "probabilities": {
+          "tone": 0.0,
+          "incomplete": 0.97,
+          "none": 0.01,
+          "unsupported": 0.02,
+          "wrong_scope": 0.0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 523,
+      "output_tokens": 91
+    }
+  },
+  "decision": {
+    "action": "revise",
+    "proceed": false,
+    "reason": "not ready: ready_to_send=0.09 (min 0.7), send_quality=0.82 (min 2.0), defect=incomplete",
+    "ready_to_send": 0.09,
+    "send_quality": 0.82,
+    "main_defect": "incomplete",
+    "thresholds": {
+      "ready_to_send_min": 0.7,
+      "send_quality_min": 2.0
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "draft-completeness",
+  "name": "Draft Completeness Gate",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "polish",
+    "proceed": false
+  },
+  "thresholds": {
+    "meets_criteria_min": 0.7
+  },
+  "questions": {
+    "meets_success_criteria": {
+      "type": "noul",
+      "instructions": "Does current workspace + draft meet the stated success criteria?"
+    },
+    "missing_piece": {
+      "type": "choice",
+      "instructions": "Largest missing piece.",
+      "criteria": {
+        "files": "Required files/paths missing",
+        "content_section": "A required section is empty/weak",
+        "verification": "Dry-call or test evidence missing",
+        "ranking": "Ranking / #1 pick unclear",
+        "none": "Complete"
+      }
+    }
+  }
+}

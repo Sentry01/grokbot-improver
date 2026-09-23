@@ -1,0 +1,12 @@
+{
+  "success_criteria": [
+    "cool-use-cases.md",
+    "top-10-brief.md",
+    "optional dry calls",
+    "report paths + top-10 + #1 + dry status"
+  ],
+  "present_files": [
+    "cool-use-cases.md"
+  ],
+  "dry_calls_done": false
+}

@@ -1,0 +1,9 @@
+{
+  "proposed": [
+    "WebFetch blog",
+    "Read sibling dry_score.json",
+    "ls workspace"
+  ],
+  "dependencies": "none between them",
+  "rate_limit_pressure": "low"
+}

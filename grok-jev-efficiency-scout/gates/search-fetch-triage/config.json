@@ -1,0 +1,29 @@
+{
+  "slug": "search-fetch-triage",
+  "name": "Search / Fetch Result Triage",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "keep",
+    "proceed": true
+  },
+  "thresholds": {
+    "keep_noul_min": 0.55,
+    "utility_score_min": 1.5
+  },
+  "questions": {
+    "keep": {
+      "type": "noul",
+      "instructions": "Should this result be kept for the answer or deeper fetch?"
+    },
+    "utility": {
+      "type": "score",
+      "instructions": "Utility of this snippet toward the user goal.",
+      "criteria": [
+        "irrelevant",
+        "weakly related",
+        "useful supporting",
+        "core evidence"
+      ]
+    }
+  }
+}

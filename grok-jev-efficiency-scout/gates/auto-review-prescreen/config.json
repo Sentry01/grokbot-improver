@@ -1,0 +1,29 @@
+{
+  "slug": "auto-review-prescreen",
+  "name": "Auto-review Risk Pre-screen",
+  "fail_mode": "open",
+  "default_on_error": {
+    "action": "proceed_with_caution",
+    "proceed": true
+  },
+  "thresholds": {
+    "likely_blocked_min": 0.55
+  },
+  "questions": {
+    "likely_blocked": {
+      "type": "noul",
+      "instructions": "Is this proposed action likely to trip Auto-review or safety blocks?"
+    },
+    "safer_path": {
+      "type": "choice",
+      "instructions": "Preferred safer approach.",
+      "criteria": {
+        "use_read_tool": "Use Read / sanctioned read path",
+        "shrink_scope": "Narrow command to lower privilege",
+        "public_fetch": "Use WebFetch/curl for public content",
+        "ask_approval": "Same action needs honest user approval retry",
+        "proceed": "Risk looks acceptable; proceed"
+      }
+    }
+  }
+}

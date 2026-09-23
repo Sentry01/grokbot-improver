@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "name": "dry_route_tool_subagent",
+    "slug": "route-tool-subagent",
+    "http_status": 200,
+    "latency_ms": 408.7,
+    "error": null,
+    "as_of": "2026-09-22 23:19:28 AEST",
+    "headers": {
+      "content-type": "application/json"
+    }
+  },
+  "request_sans_auth": {
+    "model": "jev-latest",
+    "state": {
+      "goal": "Validate Jev noul+choice shapes for tool gating",
+      "known_urls": [
+        "https://api.typesafe.ai/v1/systemone"
+      ],
+      "have_api_key_env": true,
+      "prior_failures": []
+    },
+    "questions": {
+      "route": {
+        "type": "choice",
+        "instructions": "Best next action for this goal given current state.",
+        "criteria": {
+          "answer_inline": "Enough context; write the answer now",
+          "web_fetch": "Fetch a known public URL",
+          "web_search": "Need discovery search",
+          "x_search": "Need live X/Twitter posts or social signal",
+          "browser": "Need interactive page / JS / login UI",
+          "shell_local": "Local files, code, or dry scripts on the box",
+          "spawn_executor": "Long autonomous sub-task needs a dedicated executor",
+          "ask_user": "Missing preference or credential only the user can provide"
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "route": {
+        "type": "choice",
+        "choice": "web_fetch",
+        "confidence": 0.74,
+        "probabilities": {
+          "shell_local": 0.04,
+          "web_fetch": 0.78,
+          "spawn_executor": 0.05,
+          "x_search": 0.0,
+          "browser": 0.03,
+          "answer_inline": 0.02,
+          "ask_user": 0.07,
+          "web_search": 0.01
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 501,
+      "output_tokens": 81
+    }
+  },
+  "decision": {
+    "action": "web_fetch",
+    "proceed": true,
+    "reason": "route choice=web_fetch confidence=0.74",
+    "route": "web_fetch",
+    "confidence": 0.74,
+    "probabilities": {
+      "shell_local": 0.04,
+      "web_fetch": 0.78,
+      "spawn_executor": 0.05,
+      "x_search": 0.0,
+      "browser": 0.03,
+      "answer_inline": 0.02,
+      "ask_user": 0.07,
+      "web_search": 0.01
+    },
+    "default_route": "answer_inline"
+  }
+}

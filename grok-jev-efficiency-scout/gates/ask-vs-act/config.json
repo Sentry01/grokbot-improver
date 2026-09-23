@@ -1,0 +1,29 @@
+{
+  "slug": "ask-vs-act",
+  "name": "Ask-vs-Act Confidence Gate",
+  "fail_mode": "closed",
+  "default_on_error": {
+    "action": "ask",
+    "proceed": false
+  },
+  "thresholds": {
+    "safe_to_act_min": 0.75
+  },
+  "questions": {
+    "safe_to_act": {
+      "type": "noul",
+      "instructions": "Is it safe to proceed with the proposed action without asking the user?"
+    },
+    "uncertainty_type": {
+      "type": "choice",
+      "instructions": "Dominant uncertainty.",
+      "criteria": {
+        "preference": "User taste / priority unknown",
+        "missing_fact": "Factual gap tools can fill",
+        "irreversible": "Action has hard-to-undo side effects",
+        "policy": "Safety / auth boundary unclear",
+        "none": "Sufficient certainty to act"
+      }
+    }
+  }
+}
