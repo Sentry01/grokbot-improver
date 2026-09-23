@@ -49,7 +49,7 @@ Side paths:
 Call `tool-worth-it` and optionally `redundant-tool-call` + `auto-review-prescreen`. Skip or shrink when decide says so.
 
 ### Before SendToUser / external send
-Call `draft-completeness` then `send-to-user-quality`. Hold on fail-closed / revise.
+Call `draft-completeness` then `send-to-user-quality`. Hold on fail-closed / revise. Pass optional `evidence_sources: [{tool, claim, excerpt}]` when the draft’s material claims came from tools. Empty or omitted sources can be scored `unsupported` (Trap D false-hold). Matching coverage should prefer `main_defect=none` and a higher `ready_to_send`. Thresholds stay ready ≥ 0.65 and quality ≥ 2.0.
 
 ### Before Task / executor spawn
 Call `executor-spawn`. Prefer inline when noul low or reason=`underspecified`.

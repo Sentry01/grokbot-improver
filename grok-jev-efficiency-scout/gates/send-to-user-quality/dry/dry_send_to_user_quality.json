@@ -16,12 +16,13 @@
       "channel": "SendToUser",
       "goal": "Return paths, top-10 one-liners, #1 prototype, dry-call status",
       "draft_excerpt": "Paths written under grok-jev-efficiency-scout; #1 Tool Worth-It Gate...",
-      "open_todos": []
+      "open_todos": [],
+      "evidence_sources": []
     },
     "questions": {
       "ready_to_send": {
         "type": "noul",
-        "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite?"
+        "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite? If state.evidence_sources is non-empty and its entries cover the draft’s material claims (matching tool/claim/excerpt provenance), treat those claims as already evidenced in-state — do not require additional tool use for them; score ready accordingly."
       },
       "send_quality": {
         "type": "score",
@@ -35,7 +36,7 @@
       },
       "main_defect": {
         "type": "choice",
-        "instructions": "Primary defect if not send-as-is.",
+        "instructions": "Primary defect if not send-as-is. Claims that have matching entries in state.evidence_sources (tool/claim/excerpt) are supported by tool/state evidence and must NOT be labeled unsupported. Prefer choice none when evidence_sources covers material claims and there is no other defect.",
         "criteria": {
           "incomplete": "Missing required deliverable pieces",
           "unsupported": "Claims lack evidence from tools/state",

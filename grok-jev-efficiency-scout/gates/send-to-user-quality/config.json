@@ -9,18 +9,18 @@
   "thresholds": {
     "ready_to_send_min": 0.65,
     "send_quality_min": 2.0,
-    "note": "Lowered 0.7\u21920.65 after demo: factual sourced drafts stalled at ready\u22480.59\u20130.65 with quality\u22652.0"
+    "note": "Lowered 0.7→0.65 after demo: factual sourced drafts stalled at ready≈0.59–0.65 with quality≥2.0. SPEC+evidence_sources added 2026-09-23 per user decision (Trap D false-hold fix); threshold stays 0.65 — do not lower further."
   },
   "questions": {
     "ready_to_send": {
       "type": "noul",
-      "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite?"
+      "instructions": "Is this draft ready for the user-visible channel without further tool use or rewrite? If state.evidence_sources is non-empty and its entries cover the draft’s material claims (matching tool/claim/excerpt provenance), treat those claims as already evidenced in-state — do not require additional tool use for them; score ready accordingly."
     },
     "send_quality": {
       "type": "score",
       "instructions": "Overall quality of this user-facing draft for the stated goal.",
       "criteria": [
-        "do not send \u2014 broken or unsafe",
+        "do not send — broken or unsafe",
         "needs major rewrite",
         "needs minor polish",
         "send as-is"
@@ -28,7 +28,7 @@
     },
     "main_defect": {
       "type": "choice",
-      "instructions": "Primary defect if not send-as-is.",
+      "instructions": "Primary defect if not send-as-is. Claims that have matching entries in state.evidence_sources (tool/claim/excerpt) are supported by tool/state evidence and must NOT be labeled unsupported. Prefer choice none when evidence_sources covers material claims and there is no other defect.",
       "criteria": {
         "incomplete": "Missing required deliverable pieces",
         "unsupported": "Claims lack evidence from tools/state",

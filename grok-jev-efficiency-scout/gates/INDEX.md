@@ -1,11 +1,12 @@
 # Efficiency Gates Index (all 15)
 
-As-of: 2026-09-22 AEST · Source: `cool-use-cases.md`
+As-of: 2026-09-22 AEST · Source: `cool-use-cases.md`  
+Updated 2026-09-23: `send-to-user-quality` accepts optional `evidence_sources`.
 
 | # | Slug | Name | Key threshold(s) / decision | Fail mode | Default on error | Decision fields |
 | ---: | --- | --- | --- | --- | --- | --- |
 | 1 | `tool-worth-it` | Tool Worth-It Gate | `tool_worth_it` noul ≥ **0.65** → run tool | **open** | `run_tool` | `action`, `proceed`, `noul`, `primary_blocker` |
-| 2 | `send-to-user-quality` | Send-to-User Quality Gate | `ready_to_send` ≥ **0.65** AND `send_quality` ≥ **2.0** → send | **closed** (external); open for optional chat polish | `hold_send` | `action`, `proceed`, `ready_to_send`, `send_quality`, `main_defect` |
+| 2 | `send-to-user-quality` | Send-to-User Quality Gate | `ready_to_send` ≥ **0.65** AND `send_quality` ≥ **2.0** → send. Pass optional `evidence_sources` (`[{tool, claim, excerpt}]`) so sourced claims are not scored `unsupported`. Do not lower 0.65. | **closed** (external); open for optional chat polish | `hold_send` | `action`, `proceed`, `ready_to_send`, `send_quality`, `main_defect` |
 | 3 | `route-tool-subagent` | Route / Tool / Subagent Choice | use `route` choice winner | **open** | `answer_inline` | `action`, `route`, `confidence`, `probabilities` |
 | 4 | `stop-vs-continue` | Stop-vs-Continue Loop Gate | stop if `should_stop` ≥ **0.6** OR `marginal_value` < **1.5** | **open** | `continue` once | `action`, `proceed`, `should_stop`, `marginal_value` |
 | 5 | `ask-vs-act` | Ask-vs-Act Confidence Gate | act if `safe_to_act` ≥ **0.75**; else ask | **closed** | `ask` | `action`, `proceed`, `safe_to_act`, `uncertainty_type` |
@@ -45,3 +46,7 @@ gates/redundant-tool-call/
 ## Dry runs
 
 Each slug has exactly one live dry under `gates/<slug>/dry/` written by `python gate.py`.
+
+## send-to-user-quality evidence
+
+Before SendToUser / external send, pass optional `evidence_sources: [{tool, claim, excerpt}]` when the draft’s material claims came from tools. Empty or omitted sources can be labeled `unsupported` (Trap D false-hold). Matching coverage should prefer `main_defect=none` and a higher `ready_to_send`. Thresholds stay ready ≥ **0.65** and quality ≥ **2.0**.

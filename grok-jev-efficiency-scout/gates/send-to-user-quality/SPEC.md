@@ -21,6 +21,7 @@ Immediately before SendToUser / outbound email / Slack post / any external send.
 | `goal` | string | Stated deliverable |
 | `draft_excerpt` | string | Short excerpt of the draft |
 | `open_todos` | string[] | Remaining work |
+| `evidence_sources` | array of `{tool, claim, excerpt}` | **Optional.** Tool/state provenance for material claims in the draft. Empty or omitted → treat factual claims carefully (may score as `unsupported`). When populated entries cover the draft’s material claims, `main_defect` should prefer `none` and `ready_to_send` should reflect that evidence is already in-state (no further tool use required for those claims). |
 
 ## Jev question map
 
@@ -34,7 +35,7 @@ No free-text questions.
 
 ## Thresholds
 
-- **Send** if `ready_to_send.noul >= 0.7` **AND** `send_quality.score >= 2.0`
+- **Send** if `ready_to_send.noul >= 0.65` **AND** `send_quality.score >= 2.0`
 - Else **revise** (hold send; use `main_defect` for rewrite focus)
 
 ## Fail mode

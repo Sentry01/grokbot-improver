@@ -94,6 +94,8 @@ def call_jev(
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
             "Accept": "application/json",
+            # Cloudflare blocks urllib's default UA (Error 1010 browser_signature_banned).
+            "User-Agent": "GrokJevGates/1.0 (+https://api.typesafe.ai; Python)",
         },
         method="POST",
     )

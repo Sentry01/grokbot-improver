@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "title": "Trap C+D evidence_sources re-run",
+    "date": "2026-09-23",
+    "as_of": "2026-09-23 11:10:13 AEST",
+    "model": "jev-latest",
+    "api": "https://api.typesafe.ai/v1/systemone",
+    "note": "SPEC+evidence_sources fix per user decision 2026-09-23 ~11:08 AEST. ready_to_send_min=0.65, send_quality_min=2.0 unchanged. TYPESAFE_API_KEY never logged. jev_client User-Agent patched for Cloudflare 1010.",
+    "gates_root": "/workspace/grok-jev-efficiency-scout/gates",
+    "ready_to_send_min": 0.65,
+    "send_quality_min": 2.0,
+    "fix": "SPEC + evidence_sources"
+  },
+  "summary": {
+    "trap_c_holds": true,
+    "trap_d_sends": true,
+    "trap_d_cleared": true,
+    "n_api_ok": 2,
+    "n_correct": 2
+  },
+  "traps": [
+    {
+      "trap_id": "C",
+      "title": "send-to-user-quality — HOLD vague incomplete draft (empty evidence_sources)",
+      "gate_slug": "send-to-user-quality",
+      "expected": "hold/revise",
+      "correct": true,
+      "state": {
+        "channel": "SendToUser",
+        "goal": "Return the concrete Fed funds target range after the 16 Sep 2026 hike",
+        "draft_excerpt": "Sure! Here's the answer: it depends. Let me know if you need more.",
+        "open_todos": [
+          "obtain concrete Fed funds range number"
+        ],
+        "evidence_sources": []
+      },
+      "ok": true,
+      "http_status": 200,
+      "latency_ms": 243.8,
+      "error": null,
+      "model": "jev-1.13.0",
+      "answers": {
+        "ready_to_send": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "send_quality": {
+          "type": "score",
+          "score": 0.7,
+          "confidence": 0.7,
+          "legend": {
+            "0": "do not send — broken or unsafe",
+            "1": "needs major rewrite",
+            "2": "needs minor polish",
+            "3": "send as-is"
+          },
+          "probabilities": {
+            "0": 0.3,
+            "1": 0.7,
+            "2": 0.0,
+            "3": 0.0
+          }
+        },
+        "main_defect": {
+          "type": "choice",
+          "choice": "incomplete",
+          "confidence": 0.89,
+          "probabilities": {
+            "unsupported": 0.08,
+            "none": 0.0,
+            "tone": 0.0,
+            "incomplete": 0.92,
+            "wrong_scope": 0.0
+          }
+        }
+      },
+      "decision": {
+        "action": "revise",
+        "proceed": false,
+        "reason": "not ready: ready_to_send=0.02 (min 0.65), send_quality=0.7 (min 2.0), defect=incomplete",
+        "ready_to_send": 0.02,
+        "send_quality": 0.7,
+        "main_defect": "incomplete",
+        "thresholds": {
+          "ready_to_send_min": 0.65,
+          "send_quality_min": 2.0
+        }
+      },
+      "key_scores": {
+        "ready_to_send_noul": 0.02,
+        "send_quality_score": 0.7,
+        "main_defect": "incomplete",
+        "thresholds": {
+          "ready_to_send_min": 0.65,
+          "send_quality_min": 2.0
+        }
+      }
+    },
+    {
+      "trap_id": "D",
+      "title": "send-to-user-quality — SEND good Fed funds draft WITH evidence_sources",
+      "gate_slug": "send-to-user-quality",
+      "expected": "send",
+      "correct": true,
+      "state": {
+        "channel": "SendToUser",
+        "goal": "Return the concrete Fed funds target range after the 16 Sep 2026 hike",
+        "draft_excerpt": "Per the FOMC statement already fetched this turn: the Fed hiked 25bp on 16 Sep 2026 to a target range of 3.75–4.00% (unanimous). That is the current federal funds target range.",
+        "open_todos": [],
+        "evidence_sources": [
+          {
+            "tool": "WebFetch",
+            "claim": "Fed funds target range after 16 Sep 2026 hike",
+            "excerpt": "target range 3.75–4.00% after 25bp hike on 16 Sep 2026 (unanimous)"
+          }
+        ]
+      },
+      "ok": true,
+      "http_status": 200,
+      "latency_ms": 212.1,
+      "error": null,
+      "model": "jev-1.13.0",
+      "answers": {
+        "ready_to_send": {
+          "type": "noul",
+          "noul": 0.92
+        },
+        "send_quality": {
+          "type": "score",
+          "score": 2.61,
+          "confidence": 0.61,
+          "legend": {
+            "0": "do not send — broken or unsafe",
+            "1": "needs major rewrite",
+            "2": "needs minor polish",
+            "3": "send as-is"
+          },
+          "probabilities": {
+            "0": 0.05,
+            "1": 0.02,
+            "2": 0.21,
+            "3": 0.72
+          }
+        },
+        "main_defect": {
+          "type": "choice",
+          "choice": "none",
+          "confidence": 0.98,
+          "probabilities": {
+            "incomplete": 0.0,
+            "tone": 0.01,
+            "unsupported": 0.01,
+            "wrong_scope": 0.0,
+            "none": 0.98
+          }
+        }
+      },
+      "decision": {
+        "action": "send",
+        "proceed": true,
+        "reason": "ready_to_send=0.92>=0.65 AND send_quality=2.61>=2.0",
+        "ready_to_send": 0.92,
+        "send_quality": 2.61,
+        "main_defect": "none",
+        "thresholds": {
+          "ready_to_send_min": 0.65,
+          "send_quality_min": 2.0
+        }
+      },
+      "key_scores": {
+        "ready_to_send_noul": 0.92,
+        "send_quality_score": 2.61,
+        "main_defect": "none",
+        "thresholds": {
+          "ready_to_send_min": 0.65,
+          "send_quality_min": 2.0
+        }
+      }
+    }
+  ]
+}
